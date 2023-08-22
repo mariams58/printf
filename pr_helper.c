@@ -11,7 +11,8 @@ int out_char(va_list pt)
 	int count = 0;
 
 	c = (char)va_arg(pt, int);
-	count += _putchar(c);	
+	if (c >= 0)
+		count += _putchar(c);
 	return (count);
 }
 
@@ -27,8 +28,9 @@ int out_string(va_list pt)
 	int count = 0, i;
 
 	str = va_arg(pt, char *);
-	for (i = 0; str[i] != '\0'; i++)
-		count += _putchar(str[i]);
+	if (str)
+		for (i = 0; str[i] != '\0'; i++)
+			count += _putchar(str[i]);
 	return (count);
 }
 
@@ -41,8 +43,14 @@ int out_string(va_list pt)
 int out_num(va_list pt)
 {
 	int count = 0, val;
+	int min = -2147483648;
+	int top = 2147483648;
 
 	val = va_arg(pt, int);
+	if (val < min)
+		val = min;
+	if (val > top)
+		val = top;
 	if (val < 0)
 	{
 		count += _putchar(45);
