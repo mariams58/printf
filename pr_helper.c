@@ -36,6 +36,34 @@ int out_string(va_list pt)
 		count += _putchar(str[i]);
 	return (count);
 }
+/**
+  * to_bin - converts unsigned int to binary
+  * @pt: a variable arg pt
+  *
+  * Return: num of byte printed
+  */
+int to_bin(va_list pt)
+{
+	int count = o;
+	unsigned int x, I;
+	int bin_ar[1024];
+
+	x = va_arg(pt, int);
+	if (x <= 0)
+		count += _putchar(0 + '0');
+	if (x > UINT_MAX)
+		x = UINT_MAX;
+	i = 0;
+	while (x > 0)
+	{
+		bin_ar[i] = x % 2;
+		x = x / 2;
+		i++;
+	}
+	for (j = i - 1; j > 0; j--)
+		count += _putchar(bin_ar[j] + '0');
+	return (count);
+}
 
 /**
   * out_num - prints out a char
@@ -43,14 +71,15 @@ int out_string(va_list pt)
   *
   * Return: num of byte printed to the stdout
   */
+
 int out_num(va_list pt)
 {
 	int count = 0, val;
 
 	val = va_arg(pt, int);
-	if (val < INT_MIN)
+	if (val <= INT_MIN)
 		val = INT_MIN;
-	if (val > INT_MAX)
+	if (val >= INT_MAX)
 		val = INT_MAX;
 	if (val < 0)
 	{

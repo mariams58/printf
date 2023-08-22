@@ -14,11 +14,12 @@ int (*handle_format(const char *str, int idx))(va_list)
 		{"d", out_num},
 		{"i", out_num},
 		{"u", out_num},
+		{"b", to_bin},
 		{NULL, NULL},
 	};
 	int j = 0;
 
-	while (j < 5)
+	while (j < 6)
 	{
 		if (str[idx + 1] == fmt[j].spec[0])
 			return (fmt[j].f);
@@ -47,7 +48,7 @@ int _printf(const char *format, ...)
 		if (format[idx] == '%')
 		{
 			if (!format[idx + 1])
-				return (-1);
+				return (count + 1);
 			if (format[idx] == format[idx + 1])
 			{
 				count += _putchar(format[idx + 1]);
