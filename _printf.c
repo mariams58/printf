@@ -45,9 +45,17 @@ int _printf(const char *format, ...)
 	{
 		if (format[idx] == '%')
 		{
-			func = (*handle_format)(format, idx);
-			count += func(ap);
-			idx = idx + 2;
+			if (format[idx] == format[idx + 1])
+			{
+				count += _putchar(format[idx + 1]);
+				idx += 2;
+			}
+			else
+			{
+				func = (*handle_format)(format, idx);
+				count += func(ap);
+				idx = idx + 2;
+			}
 		}
 		else
 		{

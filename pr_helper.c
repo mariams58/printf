@@ -11,7 +11,7 @@ int out_char(va_list pt)
 	int count = 0;
 
 	c = (char)va_arg(pt, int);
-	count += _putchar(c);
+	count += _putchar(c);	
 	return (count);
 }
 
