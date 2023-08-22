@@ -43,14 +43,12 @@ int out_string(va_list pt)
 int out_num(va_list pt)
 {
 	int count = 0, val;
-	int min = -2147483648;
-	int top = 2147483648;
 
 	val = va_arg(pt, int);
-	if (val < min)
-		val = min;
-	if (val > top)
-		val = top;
+	if (val < INT_MIN)
+		val = INT_MIN ;
+	if (val > INT_MAX)
+		val = INT_MAX;
 	if (val < 0)
 	{
 		count += _putchar(45);
@@ -59,6 +57,7 @@ int out_num(va_list pt)
 	count += print_num(val);
 	return (count);
 }
+
 
 /**
   * print_num - prints out a given num with putchar
