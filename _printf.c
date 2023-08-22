@@ -39,8 +39,9 @@ int _printf(const char *format, ...)
 	va_list ap;
 	int (*func)(va_list);
 
-	if (format != NULL)
-		va_start(ap, format);
+	if (format == NULL)
+		return (-1);
+	va_start(ap, format);
 	while (format[idx] != '\0')
 	{
 		if (format[idx] == '%')
@@ -53,8 +54,13 @@ int _printf(const char *format, ...)
 			else
 			{
 				func = (*handle_format)(format, idx);
-				count += func(ap);
-				idx = idx + 2;
+				if (func == NULL)
+					idx += 1;
+				else
+				{
+					count += func(ap);
+					idx = idx + 2;
+				}
 			}
 		}
 		else

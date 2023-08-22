@@ -46,7 +46,7 @@ int out_num(va_list pt)
 
 	val = va_arg(pt, int);
 	if (val < INT_MIN)
-		val = INT_MIN ;
+		val = INT_MIN;
 	if (val > INT_MAX)
 		val = INT_MAX;
 	if (val < 0)
