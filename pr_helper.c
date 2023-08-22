@@ -25,12 +25,15 @@ int out_char(va_list pt)
 int out_string(va_list pt)
 {
 	char *str;
+	char *str1 = "(null)";
 	int count = 0, i;
 
 	str = va_arg(pt, char *);
-	if (str)
-		for (i = 0; str[i] != '\0'; i++)
-			count += _putchar(str[i]);
+
+	if (!str)
+		str = str1;
+	for (i = 0; str[i] != '\0'; i++)
+		count += _putchar(str[i]);
 	return (count);
 }
 
