@@ -44,8 +44,8 @@ int out_string(va_list pt)
   */
 int to_bin(va_list pt)
 {
-	int count = o;
-	unsigned int x, I;
+	int count = 0;
+	unsigned int x, i, j = 0;
 	int bin_ar[1024];
 
 	x = va_arg(pt, int);

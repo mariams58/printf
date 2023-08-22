@@ -12,7 +12,7 @@ int (*handle_format(const char *str, int idx))(va_list)
 		{"c", out_char},
 		{"s", out_string},
 		{"d", out_num},
-		{"i", out_num},
+		{"i", out_toi},
 		{"u", out_num},
 		{"b", to_bin},
 		{NULL, NULL},
@@ -76,3 +76,30 @@ int _printf(const char *format, ...)
 	va_end(ap);
 	return (count);
 }
+
+/**
+  * out_toi - prints out a number
+  * @pt: a variable arg pt
+  *
+  * Return: num of byte printed to the stdout
+  */
+
+int out_toi(va_list pt)
+{
+	int count = 0;
+	long int val;
+
+	val = (long int)va_arg(pt, int);
+	if (val <= LONG_MIN)
+		val = LONG_MIN;
+	if (val >= LONG_MAX)
+		val = LONG_MAX;
+	if (val < 0)
+	{
+		count += _putchar(45);
+		val = -val;
+	}
+	count += print_num(val);
+	return (count);
+}
+

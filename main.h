@@ -23,6 +23,7 @@ int _printf(const char *format, ...);
 int (*handle_format(const char *str, int idx))(va_list);
 int out_num(va_list pt);
 int out_char(va_list pt);
+int out_toi(va_list pt);
 int out_string(va_list pt);
 int to_bin(va_list pt);
 int print_num(int num);
