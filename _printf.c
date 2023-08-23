@@ -13,7 +13,7 @@ int (*handle_format(const char *str, int idx))(va_list)
 		{"s", out_string},
 		{"d", out_num},
 		{"i", out_toi},
-		{"u", out_num},
+		{"u", out_tou},
 		{"b", to_bin},
 		{NULL, NULL},
 	};
@@ -47,8 +47,8 @@ int _printf(const char *format, ...)
 	{
 		if (format[idx] == '%')
 		{
-			if (!format[idx + 1])
-				return (count + 1);
+			if (!format[idx + 1] || format[idx + 1] == 32)
+				return (-1);
 			if (format[idx] == format[idx + 1])
 			{
 				count += _putchar(format[idx + 1]);
@@ -78,12 +78,35 @@ int _printf(const char *format, ...)
 }
 
 /**
+  * out_tou - prints out unsigned int
+  * @pt: a variable arg
+  *
+  * Return: num of byte
+  */
+int out_tou(va_list pt)
+{
+	int count = 0;
+	int val;
+	unsigned int bval;
+
+	val = va_arg(pt, int);
+	if (val < 1)
+		val = 0;
+	if (val > INT_MAX)
+	{
+		bval = val;
+		return ((count += print_num(bval)));
+	}
+	count += print_num(val);
+	return (count);
+}
+
+/**
   * out_toi - prints out a number
   * @pt: a variable arg pt
   *
   * Return: num of byte printed to the stdout
   */
-
 int out_toi(va_list pt)
 {
 	int count = 0;
@@ -102,4 +125,3 @@ int out_toi(va_list pt)
 	count += print_num(val);
 	return (count);
 }
-
