@@ -44,8 +44,8 @@ int out_string(va_list pt)
   */
 int to_bin(va_list pt)
 {
-	int count = 0;
-	unsigned int x, i, j = 0;
+	int count = 0, i, j = 0;
+	unsigned int x;
 	int bin_ar[1024];
 
 	x = va_arg(pt, int);
@@ -60,7 +60,7 @@ int to_bin(va_list pt)
 		x = x / 2;
 		i++;
 	}
-	for (j = i - 1; j > 0; j--)
+	for (j = i - 1; j >= 0; j--)
 		count += _putchar(bin_ar[j] + '0');
 	return (count);
 }
@@ -77,7 +77,7 @@ int out_num(va_list pt)
 	int count = 0, val;
 
 	val = va_arg(pt, int);
-	if (val <= INT_MIN)
+	if (val < INT_MIN)
 		val = INT_MIN;
 	if (val >= INT_MAX)
 		val = INT_MAX;
