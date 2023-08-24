@@ -15,11 +15,14 @@ int (*handle_format(const char *str, int idx))(va_list)
 		{"i", out_toi},
 		{"u", out_tou},
 		{"b", to_bin},
+		{"S", to_string},
+		{"x", to_hex},
+		{"X", to_heX},
 		{NULL, NULL},
 	};
 	int j = 0;
 
-	while (j < 6)
+	while (j < 10)
 	{
 		if (str[idx + 1] == fmt[j].spec[0])
 			return (fmt[j].f);
@@ -45,7 +48,7 @@ int _printf(const char *format, ...)
 	va_start(ap, format);
 	while (format[idx] != '\0')
 	{
-		if (format[idx] == '%')
+		while (format[idx] == '%')
 		{
 			if (!format[idx + 1] || format[idx + 1] == 32)
 				return (-1);
@@ -54,26 +57,55 @@ int _printf(const char *format, ...)
 				count += _putchar(format[idx + 1]);
 				idx += 2;
 			}
-			func = (*handle_format)(format, idx);
-			if (func == NULL)
-			{
-				count += _putchar(format[idx]);
-				idx += 1;
-			}
 			else
 			{
-				count += func(ap);
-				idx = idx + 2;
+				func = (*handle_format)(format, idx);
+				if (func == NULL)
+				{
+					count += _putchar(format[idx]);
+					idx += 1;
+				}
+				else
+				{
+					count += func(ap);
+					idx = idx + 2;
+				}
 			}
 		}
-		else
-		{
-			_putchar(format[idx]);
-			count += 1;
-			idx++;
-		}
+		count += _putchar(format[idx]);
+		idx++;
 	}
 	va_end(ap);
+	return (count);
+}
+
+/**
+  * to_string - prints out a char
+  * @pt: a variable arg pt
+  *
+  * Return: num of byte printed to the stdout
+  */
+int to_string(va_list pt)
+{
+	char *str;
+	char *str1 = "(null)";
+	int count = 0, i;
+
+	str = va_arg(pt, char *);
+
+	if (!str)
+		str = str1;
+	for (i = 0; str[i] != '\0'; i++)
+	{
+		if (!(str[i] > 0 && str[i] < 32) || str[i] >= 127)
+			count += _putchar(str[i]);
+		else
+		{
+			count += _putchar(92);
+			count += _putchar(120);
+			count += out_x(str[i]);
+		}
+	}
 	return (count);
 }
 

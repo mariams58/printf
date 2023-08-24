@@ -2,6 +2,7 @@
 #define _MAIN_H_
 
 #include <limits.h>
+#include <stdlib.h>
 #include <stdarg.h>
 #include <stddef.h>
 #include <unistd.h>
@@ -27,6 +28,10 @@ int out_toi(va_list pt);
 int out_tou(va_list pt);
 int out_string(va_list pt);
 int to_bin(va_list pt);
+int to_heX(va_list pt);
+int to_hex(va_list pt);
+int to_string(va_list pt);
 int print_num(int num);
+int out_x(int num);
 
 #endif

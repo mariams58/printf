@@ -46,7 +46,7 @@ int to_bin(va_list pt)
 {
 	int count = 0, i, j = 0;
 	unsigned int x;
-	int bin_ar[1024];
+	int bin_ar[32];
 
 	x = va_arg(pt, int);
 	if (x <= 0)
