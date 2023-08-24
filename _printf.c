@@ -22,7 +22,7 @@ int (*handle_format(const char *str, int idx))(va_list)
 	};
 	int j = 0;
 
-	while (j < 10)
+	while (j < 9)
 	{
 		if (str[idx + 1] == fmt[j].spec[0])
 			return (fmt[j].f);
@@ -48,17 +48,17 @@ int _printf(const char *format, ...)
 	va_start(ap, format);
 	while (format[idx] != '\0')
 	{
-		while (format[idx] == '%')
+		if (format[idx] == '%')
 		{
 			if (!format[idx + 1] || format[idx + 1] == 32)
 				return (-1);
-			if (format[idx] == format[idx + 1])
+			if (format[idx + 1] == format[idx])
 			{
-				count += _putchar(format[idx + 1]);
+				count += _putchar(format[idx]);
 				idx += 2;
 			}
 			else
-			{
+			{				
 				func = (*handle_format)(format, idx);
 				if (func == NULL)
 				{
@@ -72,8 +72,12 @@ int _printf(const char *format, ...)
 				}
 			}
 		}
-		count += _putchar(format[idx]);
-		idx++;
+		else
+		{
+			_putchar(format[idx]);
+			count += 1;
+			idx++;
+		}
 	}
 	va_end(ap);
 	return (count);
